@@ -32,7 +32,7 @@ public class Coin {
         this.value = value;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 

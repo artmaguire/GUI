@@ -13,7 +13,7 @@ class Operator {
         return type;
     }
 
-    public int getCode() {
+    int getCode() {
         return code;
     }
 

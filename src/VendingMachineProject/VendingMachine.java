@@ -137,12 +137,12 @@ class VendingMachine {
         }
     }
 
-    void addCoinsToMachine() {
+    private void addCoinsToMachine() {
         for (Coin c : currentCoins.getCoins())
             coins.addOneCoin(c);
     }
 
-    void removeCoinAmount(double amount) {
+    private void removeCoinAmount(double amount) {
         double remaining = currentCoins.getTotal() - amount;
         currentCoins.removeCoinSet();
 
@@ -155,7 +155,6 @@ class VendingMachine {
                 }
             }
         }
-        System.out.println(currentCoins.getCoins());
     }
 
     void addProduct(Product product) {
