@@ -127,6 +127,39 @@ class VendingMachine {
         if (p.getPrice() <= currentCoins.getTotal()) {
             if (p.decrementQuantity(p) == 0) {
                 products.remove(products.lastIndexOf(p));
+
+                //Splits product price into coins and adds them to coin arraylist
+                double productPrice = p.getPrice();
+                double remainingCoins;
+                String price = String.valueOf(productPrice);
+                String priceBits [] = price.split(".");
+
+                int euroCount = Integer.parseInt(priceBits[0]);
+
+                while (productPrice > 0) {
+                    while (euroCount > 0) {
+                        coins.addCoinType(new Coin("Euro", 1, 1));
+                        productPrice -= 1;
+                        euroCount -= 1;
+                    }
+
+                    remainingCoins = Integer.parseInt(priceBits[1]);
+                    while ((remainingCoins - .50) > 0) {
+                        coins.addCoinType(new Coin("50 cent", .50, 1));
+                        productPrice -= 0.50;
+                        remainingCoins -= 0.50;
+                    }
+                    while ((remainingCoins - .10) > 0) {
+                        coins.addCoinType(new Coin("10 cent", .10, 1));
+                        productPrice -= 0.10;
+                        remainingCoins -= 0.10;
+                    }
+                    while ((remainingCoins - .05) > 0) {
+                        coins.addCoinType(new Coin("5 cent", .05, 1));
+                        productPrice -= 0.05;
+                        remainingCoins -= 0.05;
+                    }
+                }
             }
             return true;
         } else {
