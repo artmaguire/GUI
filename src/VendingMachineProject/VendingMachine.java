@@ -117,7 +117,7 @@ class VendingMachine {
     }
 
     Coin[] getCoinTypes() {
-        Set<Coin> s = new HashSet<>(coins.getCoins());
+        List<Coin> s = coins.getCoins();
         Coin[] c = new Coin[s.size()];
         return s.toArray(c);
     }
