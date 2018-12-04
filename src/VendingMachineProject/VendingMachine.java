@@ -127,45 +127,35 @@ class VendingMachine {
         if (p.getPrice() <= currentCoins.getTotal()) {
             if (p.decrementQuantity(p) == 0) {
                 products.remove(products.lastIndexOf(p));
-
-                //Splits product price into coins and adds them to coin arraylist
-                double productPrice = p.getPrice();
-                double remainingCoins;
-                String price = String.valueOf(productPrice);
-                String priceBits [] = price.split(".");
-
-                int euroCount = Integer.parseInt(priceBits[0]);
-
-                while (productPrice > 0) {
-                    while (euroCount > 0) {
-                        coins.addCoinType(new Coin("Euro", 1, 1));
-                        productPrice -= 1;
-                        euroCount -= 1;
-                    }
-
-                    remainingCoins = Integer.parseInt(priceBits[1]);
-                    while ((remainingCoins - .50) > 0) {
-                        coins.addCoinType(new Coin("50 cent", .50, 1));
-                        productPrice -= 0.50;
-                        remainingCoins -= 0.50;
-                    }
-                    while ((remainingCoins - .10) > 0) {
-                        coins.addCoinType(new Coin("10 cent", .10, 1));
-                        productPrice -= 0.10;
-                        remainingCoins -= 0.10;
-                    }
-                    while ((remainingCoins - .05) > 0) {
-                        coins.addCoinType(new Coin("5 cent", .05, 1));
-                        productPrice -= 0.05;
-                        remainingCoins -= 0.05;
-                    }
-                }
             }
+            addCoinsToMachine();
+            removeCoinAmount(p.getPrice());
             return true;
         } else {
             System.out.println("Insufficient Coins!");
             return false;
         }
+    }
+
+    void addCoinsToMachine() {
+        for (Coin c : currentCoins.getCoins())
+            coins.addOneCoin(c);
+    }
+
+    void removeCoinAmount(double amount) {
+        double remaining = currentCoins.getTotal() - amount;
+        currentCoins.removeCoinSet();
+
+        while (remaining > 0.001) {
+            for (Coin c : coins.getCoins()) {
+                if (c.getValue() - 0.001 < remaining) {
+                    currentCoins.addCoin(c);
+                    coins.removeOneCoin(c);
+                    remaining -= c.getValue();
+                }
+            }
+        }
+        System.out.println(currentCoins.getCoins());
     }
 
     void addProduct(Product product) {
@@ -175,6 +165,7 @@ class VendingMachine {
     void writeToFile() {
         writeOperators();
         writeProducts();
+        writeCoins();
     }
 
     private void writeProducts() {
@@ -203,6 +194,21 @@ class VendingMachine {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed to create: " + operatorFileName + "\n" + e.getStackTrace());
+        }
+    }
+
+    private void writeCoins() {
+        String moneyFileName = "money.csv";
+        PrintWriter pw;
+        try {
+            pw = new PrintWriter(new FileOutputStream(moneyFileName, false));
+            for (Coin c : coins.getCoins()) {
+                pw.println(c.getCSV());
+            }
+            pw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Failed to create: " + moneyFileName + "\n" + e.getStackTrace());
         }
     }
 

@@ -44,8 +44,24 @@ public class Coin {
         return name + "," + value + "," + quantity;
     }
 
+    void increaseQuantity() {
+        quantity++;
+    }
+
+    void reduceQuantity() {
+        quantity--;
+    }
+
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coin coin = (Coin) o;
+        return Double.compare(coin.value, value) == 0;
     }
 }

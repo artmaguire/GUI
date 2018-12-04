@@ -38,6 +38,36 @@ public class CoinSet {
         return coins;
     }
 
+    boolean hasCoin(Coin hc) {
+        for (Coin c : coins) {
+            if (c.equals(hc))
+                return true;
+        }
+        return false;
+    }
+
+    void removeCoin(Coin rc) {
+        coins.remove(rc);
+    }
+
+    void addOneCoin(Coin rc) {
+        for (Coin c : coins) {
+            if (c.equals(rc)) {
+                c.increaseQuantity();
+                return;
+            }
+        }
+    }
+
+    void removeOneCoin(Coin rc) {
+        for (Coin c : coins) {
+            if (c.equals(rc)) {
+                c.reduceQuantity();
+                return;
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "CoinSet{" +
