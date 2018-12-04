@@ -387,6 +387,8 @@ public class VendingMachineSimulation extends Application {
 
         listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
+        buyButton.setOnAction(e -> buyProduct());
+
         back.setOnAction(e -> {
             start(showProduct);
             Stage stage = (Stage) back.getScene().getWindow();
