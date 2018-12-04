@@ -47,7 +47,7 @@ public class Product {
     }
 
     int decrementQuantity(Product p) {
-        return p.quantity - 1;
+        return --p.quantity;
     }
 
     //ADD REMAINING CODE HERE

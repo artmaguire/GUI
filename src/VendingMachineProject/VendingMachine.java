@@ -124,20 +124,15 @@ class VendingMachine {
     }
 
     boolean buyProduct(Product p) {
-        boolean sufficientCoins;
-
         if (p.getPrice() <= currentCoins.getTotal()) {
-            products.remove(products.lastIndexOf(p));
-            p.decrementQuantity(p);
-            if (p.getQuantity() == 0) {
-                products.remove(p);
+            if (p.decrementQuantity(p) == 0) {
+                products.remove(products.lastIndexOf(p));
             }
-            sufficientCoins = true;
+            return true;
         } else {
             System.out.println("Insufficient Coins!");
-            sufficientCoins = false;
+            return false;
         }
-        return sufficientCoins;
     }
 
     void addProduct(Product product) {

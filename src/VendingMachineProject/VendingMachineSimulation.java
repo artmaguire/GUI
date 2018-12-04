@@ -289,7 +289,8 @@ public class VendingMachineSimulation extends Application {
             try {
                 try {
                     ObservableList<Product> product = listView.getSelectionModel().getSelectedItems();
-                    Product p = new Product(product.get(0).getDescription(), product.get(0).getPrice(), product.get(0).getQuantity());
+                    //Product p = new Product(product.get(0).getDescription(), product.get(0).getPrice(), product.get(0).getQuantity());
+                    Product p = product.get(0);
                     if (machineGUI.buyProduct(p))
                         AlertBox.display("", "Purchased " + p.getDescription());
                     else
