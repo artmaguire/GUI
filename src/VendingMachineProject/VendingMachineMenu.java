@@ -77,6 +77,7 @@ class VendingMachineMenu {
                     break;
                 case "Q":
                     more = false;
+                    machine.writeToFile();
                     System.exit(0);
                     break;
             }

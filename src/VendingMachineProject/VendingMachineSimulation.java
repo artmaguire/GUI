@@ -41,12 +41,10 @@ public class VendingMachineSimulation extends Application {
         try {
             if (Integer.parseInt(input) == 2) {
                 launch(args);
-                machineGUI.writeToFile();
             } else if (Integer.parseInt(input) == 1){
                 menu.run(machine);
                 machine.writeToFile();
-            }
-            else {
+            } else {
                 new VendingException("Invalid Number! Enter 1 or 2.");
             }
         } catch (NumberFormatException e) {
@@ -57,6 +55,10 @@ public class VendingMachineSimulation extends Application {
     @Override
     public void start(Stage primaryStage) {
         window = primaryStage;
+
+        window.setOnCloseRequest(e -> {
+            machineGUI.writeToFile();
+        });
 
         if (listView.getItems().size() == 0) {
             listView.getItems().addAll(machineGUI.getProducts());
@@ -76,7 +78,10 @@ public class VendingMachineSimulation extends Application {
         addProduct.setOnAction(e -> confirmBox());
         removeCoins.setOnAction(e -> removeCoins());
 
-        quit.setOnAction(e -> System.exit(0));
+        quit.setOnAction(e -> {
+            machineGUI.writeToFile();
+            System.exit(0);
+        });
 
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.CENTER);
