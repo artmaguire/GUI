@@ -8,16 +8,6 @@ public class Coin {
     private String name;
     private int quantity;
 
-    /**
-     Constructs a coin.
-     @param aValue the monetary value of the coin.
-     @param aName the name of the coin
-     */
-    Coin(double aValue, String aName) {
-        value = aValue;
-        name = aName;
-    }
-
     Coin(String name, double value, int quantity) {
         this.name = name;
         this.value = value;
@@ -28,16 +18,8 @@ public class Coin {
         return value;
     }
 
-    public void setValue(double value) {
-        this.value = value;
-    }
-
     String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     String getCSV() {

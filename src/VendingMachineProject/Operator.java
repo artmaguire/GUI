@@ -9,10 +9,6 @@ class Operator {
         this.code = code;
     }
 
-    public String getType() {
-        return type;
-    }
-
     int getCode() {
         return code;
     }

@@ -8,16 +8,6 @@ public class Product {
     private double price;
     private int quantity;
 
-    /**
-     Constructs a Product object
-     @param aDescription the description of the product
-     @param aPrice the price of the product
-     */
-    Product(String aDescription, double aPrice) {
-        description = aDescription;
-        price = aPrice;
-    }
-
     Product(String description, double price, int quantity) {
         this.description = description;
         this.price = price;
@@ -30,10 +20,6 @@ public class Product {
 
     double getPrice() {
         return price;
-    }
-
-    int getQuantity() {
-        return quantity;
     }
 
     String getCSV() {
